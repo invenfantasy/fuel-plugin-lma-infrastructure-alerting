@@ -32,7 +32,7 @@ module Puppet::Parser::Functions
             result[name] = {
                 'properties' => {
                   'address' => ip,
-                  'hostgroups' => hash.select{|k,v| v.count{|n| n[name_key] == name} > 0 }.keys(),
+                  'hostgroups' => hash.select{|k,v| v.count{|n| n[name_key] == name} > 0 },
                   'display_name' => display_name,
                   'alias' => display_name,
                 },
