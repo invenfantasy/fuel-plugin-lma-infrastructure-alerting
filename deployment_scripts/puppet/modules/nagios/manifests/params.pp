@@ -15,7 +15,6 @@
 class nagios::params {
   $config_dir = '/etc/nagios3/conf.d'
   $main_conf_file = '/etc/nagios3/nagios.cfg'
-  $nagios_service_name = 'nagios3'
 
   # plugins
   $nagios_plugin_package = 'nagios-plugins'
@@ -50,7 +49,13 @@ class nagios::params {
   $host_notification_options = 'd,r'
   $service_notification_command = ['notify-service-by-email-with-long-service-output']
 
-  $package_mailx_smtp = 'heirloom-mailx'
+  if $::operatingsystem == 'Ubuntu' and $::lsbdistrelease == '10.04' {
+    $package_mailx_smtp = 'heirloom-mailx'
+    $nagios_service_name = 'nagios3'
+  } else {
+    $nagios_service_name = 'nagios'
+    $package_mailx_smtp = 'mailx'
+  }
   $service_notification_command_by_smtp = ['notify-service-by-smtp-with-long-service-output']
   $host_notification_commands = ['notify-host-by-email']
 }
